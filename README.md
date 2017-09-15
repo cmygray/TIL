@@ -1,7 +1,8 @@
-# TIL
-Today I learned ...
-## Documentation
-* GFM(GitHub Flavored Markdown) 사용
-  ![github md guide](https://guides.github.com/features/mastering-markdown/)
-* 새로운 언어, 카테고리는 새폴더에
-* fds/LOG.md 에서 하루 분량씩 분류, 정리
+# TIL (2017.09.04 ~)
+* ~~새로운 언어, 카테고리는 새폴더에~~
+* ~~fds/LOG.md 에서 하루 분량씩 분류, 정리~~
+---
+## 기록 방식 변경 (2017.09.15)
+* 루트 폴더에는 날짜별 파일을 생성해 그날 한 일과 회고(할 일)를 쓴다.
+* 각 폴더는 분야별 배운 내용을 정리하는 곳. [FDS 수강 로그](https://github.com/cmygray/fds)를 참고해서 틈나는대로 정리한다.
+* 언젠간 [블로그](https://cmygray.github.io/)에 올리리...
