@@ -36,5 +36,34 @@ print(a, b)  # [1] None이 출력된다.
 ```
 > 변수에 기본 자료형의 값을 할당한다 | 변수가 기본 자료형의 값을 가리키게 한다 ???
 
+### Operator
+
+### built-in(?) methods
+* 종류
+  1. `for (var i=0; i<array.length; i++) {}`: index
+  1. `for (var i in array) {}`: index
+  1. `array.forEach(function(elmnt, indx, arr) {})`: element, index, array
+  1. `for (var elmnt of arr) {}`: element
+  1. `for (var [idnx, val] of array.entries()) {}`: index & value
+
+* `.forEach()`  
+메소드는 배열의 각 엘리먼트를 순회하며 콜백 함수 블록 내 명령을 실행한다. 콜백 함수는 익명일 수 있으며 순서대로 엘리먼트, 인덱스, 배열 총 3개의 *인수(?)*를 가질 수 있다. 덜 넣어도 되지만 순서는 일정하다.
+```javascript
+arrayObj.forEach(callback(ele, indx, arr) { execution sentence });
+
+array = ['a', 'b', 'c', 'd'];
+array.forEach(function(element, index, array) {
+  console.log(index + 'th ' + element + ' in ' + array);
+});
+>>> 0th a in a,b,c,d
+>>> 1th b in a,b,c,d
+>>> 2th c in a,b,c,d
+>>> 3th d in a,b,c,d
+```
+> `+` 연산을 수행하면서 모두 문자열이 되어서 괄호는 사라짐
+
+* 
+
 ## 차이점
 py: `True`, `False` | js: `true`, `false`
+
