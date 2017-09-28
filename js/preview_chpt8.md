@@ -54,7 +54,8 @@ defCopy1
 > `const` 변수명 다시 못쓰게하는거. 근데 identifier에 object를 assign하면 property access, reassignment or mutation은 가능함.
 ---
 
-* [ ] 프로퍼티명에 연산자를 굳이 포함해서 접근방법을 제한해야 하는지? (대괄호 표기법 강제)
+* [x] 프로퍼티명에 연산자를 굳이 포함해서 접근방법을 제한해야 하는지? (대괄호 표기법 강제)
+  > 가장 좋은 것은 연산자를 안쓰는 것, 어쩔 수 없을때만 사용해라.
 * [ ] literal object와 이를 참조하는 다른 변수의 memory address가 정해지는 절차가 궁금하다.
 * [ ] object의 property value를 갱신할 때, 재할당이 일어나는 시점?
 * [ ] 오브젝트의 프로퍼티 값이 기본 자료형이면 pass-by-value?
