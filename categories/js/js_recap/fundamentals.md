@@ -104,29 +104,62 @@ a  //ReferenceError
 
 ## operator;연산자
 하나 이상의 값을 하나의 값으로 평가하기 위해 연산자를 사용한다. 종류는 아래와 같다.
+*비트연산자 제외*
 
-logical;논리 연산자
+* assignment;대입(할당) 연산자  
+대입 연산자는 값을 반환하지 않으며, 할당만 한다.  
+|syntax|meaning|
+|:--|:--|
+|`x=y`|`x에 y할당`|
+|`x+=y`|`x = x + y`|
+|`x-=y`|`x = x - y`|
+|`x*=y`|`x = x * y`|
+|`x/=y`|`x = x / y`|
+|`x%=y`|`x = x % y`|
+
+* comparison;비교 연산자  
+비교 연산자는 Boolean 값을 반환한다.  
+|syntax|meaning|
+|:--|:--|
+|`==`|`equal`(값 비교)|
+|`!=`|`not equal`(값 비교)|
+|`===`|`equal`(값과 타입 비교)|
+|`!==`|`not equal`(값과 타입 비교)|
+|`>`|`larger`|
+|`>=`|`larger or equal`|
+|`<`|`smaller`|
+|`<=`|`smaller or equal`|
+
+* arithmetic;산술 연산자  
+산술연산자는 하나의 Number 값을 반환한다.  
+*사칙연산은 생략*
+|syntax|meaning|
+|:--|:--|
+|`%`|나머지|
+|`++`|증가|
+|`--`|감소|
+
+```javascript
+var x = 0;
+x ++ // 0 (선 반환 후 대입)
+x // 1
+++ x // 2 (선 대입 후 반환)
+```
+
+* logical;논리 연산자  
+논리의 합 또는 곱 반환(`true=1, false=0`으로 치환해서 이해하자)
 |syntax|meaning|
 |:--|:--|
 |`||`|or|
 |`&&`|and|
 
-arithmetic;산술 연산자
+* conditional;삼항 연산자
 |syntax|meaning|
 |:--|:--|
-|`+`|addition
-|`-`|substraction
-|`*`|multiply
-|`/`|division
-|`%`|remainder
-|`**`|
+|`con ? val : val`|조건의 참 거짓에 따라 값 반환|
 
-
-
-assignment;할당 연산자
-|syntax|meaning|
-|:--|:--|
-
+* 그외  
+`delete`, `,` `typeof`, `in`, `instanceof`, `new`, 
 
 ## control flow;제어 흐름
 구문은 위에서부터 차례대로 실행되지만, 흐름 제어를 통해 이를 의도적으로 조절할 수 있다. 조건, 반복 구문 등을 활용한다. e.g. `if`, `while`, `for`
@@ -160,7 +193,7 @@ keyword와 반복 조건, 반복할 블록구문으로 구성된다.
 0개 이상의 인수를 받아서 함수 블록 내의 구문(명령 내지는 코드-인수와 유관할 수도 무관할 수도 있다)을 실행하도록 선언한다. 결과값을 반환할 수도 있고 안할 수도 있다. 함수는 일급객체로, 어디에든 호출할 수 있다. e.g. 변수에 할당하거나, 다른 함수의 인수로 전달하기 등
 
 * **함수를 정의하는 방법**
-> 표현식, 선언식의 혼동을 주의. 함수의 이름과 할당된 변수명의 차이, 다른함수에서 호출 시 둘 중 하나를 사용해도 무방한 이유 체크.
+* [ ] 표현식, 선언식의 혼동을 주의. 함수의 이름과 할당된 변수명의 차이, 다른함수에서 호출 시 둘 중 하나를 사용해도 무방한 이유 체크.
   1. 선언 방식  
   `function funcName(parms) { statements; }`
   1. 표현 방식  
@@ -170,9 +203,55 @@ keyword와 반복 조건, 반복할 블록구문으로 구성된다.
 
 결국 무슨 방법이든 3번 방식을 경유한다.
 
+### hoisiting (in casee of function)
+함수의 정의 방식에 따라서 '함수블록 전체가 호이스팅' 되거나 '함수가 할당된 변수만 호이스팅' 된다. 함수의 정의 구문보다 상단에서 호출 시 전자의 경우 이상없이 호출되지만 후자의 경우엔 `TypeError`가 발생한다. `ReferenceError`가 아닌 이유는 변수(함수명) 호이스팅으로 인해 값이 `undefined`로 초기화된 상태이기 때문이다. 즉 `undefined` 변수를 함수로써 호출했기 때문이다.
+
+```javascript
+console.log(funcDcl()); // hello
+console.log(funcExp()); // Type Error
+
+//1. function declaration
+//선언식으로 정의한 함수는 함수 블록 전체가 호이스팅된다.
+function funcDcl() {
+  console.log('hello');
+};
+
+//2. function expression
+//표현식으로 정의한 함수는 변수의 이름만 호이스팅된다
+var funcExp = function() {
+  console.log('world');
+};
+```
+
+### 함수 내에서 arguments property 사용하기
+함수 객체에는 `arguments`라는 프로퍼티가 있다. 이는 함수 호출 시점에 전달 될 인수들을 의미한다. 함수 내에서 '유사 배열 객체' 처럼 취급되어 인수 순회 등의 용도로 사용한다.
 
 ## prototype;프로토타입
-모든 객체는 프로토타입과 상속관계이며, `.__proto__` 프로퍼티로(?) 바인딩된다.  
+생성자 함수, 프로토타입, 오브젝트 간의 연결관계
+```javascript
+var myConstructor = function() {};  //<1>
+var myObject = new myConstructor(); //<2>
+```
+위 구문에서 생성자 함수와 오브젝트, 프로토타입의 관계를 그림으로 표시하면 아래와 같다.
+```
+myConstructor
+prototype.constructor
+object.__proto__.constructor       myConstructor.prototype
+object.constructor(inherit)        myObject.__proto__
+\=================\                \===========\
+| <1>             | --prototype--> |           |
+|  myConstructor  |                | prototype |
+|                 | <-constructor- |           |
+\=================\                \===========\
+         |                              |  ↑
+         |                      inherit |  | .__proto__ (access)
+         |                              ↓  |
+         |                         \==========\
+         |                         | <2>      |
+          ---------new f()-------> | myObject |
+                                   |          |
+                                   \==========\
+```
 
 ## scope;스코프, 영향범위
 
@@ -182,7 +261,7 @@ keyword와 반복 조건, 반복할 블록구문으로 구성된다.
 
 지역변수가 없기 때문에 함수 블록 외부의 전역변수를 참조했기 때문이다.
 ```javascript
-//case1. local var declaration after access
+//case 1. local var declaration after access
 var myvar = "my value";
 
 (function() {
@@ -190,12 +269,19 @@ var myvar = "my value";
   var myvar = "local value";
 })();
 
-//case2. no local var
+//case 2. no local var
 var z = 25; // undefined
 (function() {
   console.log(z); // 25
 })();
 ```
+
+### scope_일반적인 규칙
+
+* 함수 내부에서 정의한 변수(지역변수)에 전역 스코프에서 접근할 수 없다.
+* 함수 또는 내부함수에서 필요한 변수에 접근할 수 없을 때, 가까운 부모함수에서 전역 스코프의 순서로 탐색한다.
+* 내부함수에서 변수 할당 시 `var` 키워드를 빠뜨리면 부모 함수 또는 전역에서 같은 이름의 변수에 값을 재할당한다.
+* 로컬 함수 내부에서도 호이스팅이 일어난다(?) 지역 변수 선언보다 먼저 변수를 사용하면 undefined 값을 사용한다.
 
 ## this
 (일반)함수 블록 내부의 `this`는 자신이 포함된 함수를 메소드로 소유한 객체를 가리킨다. 함수를 전역 변수 a에 할당하면 `window` 객체는 a라는 이름의 메소드를 가진 셈이 된다. 따라서 일반함수의 `this`는 `window`라고 할 수 있다.
