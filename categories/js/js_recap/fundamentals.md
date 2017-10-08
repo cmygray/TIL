@@ -367,7 +367,71 @@ var z = 25; // undefined
 * 함수 또는 내부함수에서 필요한 변수에 접근할 수 없을 때, 가까운 부모함수에서 전역 스코프의 순서로 탐색한다.
 * 내부함수에서 변수 할당 시 `var` 키워드를 빠뜨리면 부모 함수 또는 전역에서 같은 이름의 변수에 값을 재할당한다.
 * 로컬 함수 내부에서도 호이스팅이 일어난다(?) 지역 변수 선언보다 먼저 변수를 사용하면 undefined 값을 사용한다.
+* 스코프는 함수의 선언시점을 기준으로 한다. 전역함수 A()를 다른 전역함수 B() 내부에서 호출한다면, A()함수의 선언구문을 우선적으로 참조한다. -> **lexical scoping**
+
+  ```javascript
+  var scope = 'this is global';
+  function b() {
+    var scope = 'this is local in b()';
+    a();
+  }
+  function a() {
+    console.log(scope);
+  }
+  b() //this is global
+  ```
 
 ## this
 함수 블록 내부의 `this`는 함수를 메소드로 소유한 객체를 가리킨다. 전역함수 a는 `window` 객체 내부에서 a라는 이름의 메소드이다. 따라서 일반함수의 `this`는 `window`라고 할 수 있다.  
 `new` 연산자로 함수를 호출하면, `this`는 생성될 인스턴스를 가리킨다. 생성자 함수 내에서 사용하는 메소드의 `this` 역시 같은 인스턴스를 가리킨다. 이는 내부함수의 `this` 역시 윈도우를 가리키는 것과 같은 원리이다.
+
+* `this` binding patterns (*according to function invocation patterns*)
+  1. function invocation  
+    `this === window` >> true
+  1. method invocation  
+    `내부함수 ? window : object`
+  ```javascript
+  var test = {};
+  test.check = function() {
+    console.log('this === test: ', this === test);
+      function check() {
+        console.log('this === window: ', this === window);
+      }
+    check();
+  };
+  test.check();
+  //this === test: true
+  //this === window: true
+  ```
+
+  3. constructor invocation  
+    `this === instance`  
+    `new` keyword 누락 대비 패턴
+  ```javascript
+  function AnyConstructor(arg) {
+    // 아래 구문부터 대비 패턴이다.
+    if(!(this instanceof arguments.callee)) {
+      return new arguments.callee(arg);
+    }
+    this.prop = arg ? expression with arg or not : 0;
+  }
+  ```
+
+  4. apply (call) invocation  
+    *instant `this`*
+  ```javascript
+  var Person = function(name) {
+  this.name = name;
+  }
+  Person.prototype.nation = function(nation) {
+    this.nation = nation;
+  }
+  var byNew = new Person('KIM');
+  byNew.nation('KOR');
+  var byApply = {};
+  Person.apply(byApply, ['LEE'])
+  byApply.nation('KOR');
+  byNew.nation.apply(byApply, ['JPN']);
+  Person.prototype.nation.apply(byApply, ['JPN']);
+  byApply.__proto__ === byNew.__proto__
+  ```
