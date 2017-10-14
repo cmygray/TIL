@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>더하기 결과 확인</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <p>더하기 결과 확인</p>
+  <div>
+    <input type="text" name="a"> +
+    <input type="text" name="b"> =
+    <input type="text" name="result">
+  </div>
+  <input type="button" value="확인">
+  <script>
+    var input = document.getElementsByTagName('input')
+    var btn = input[3];
+    function checkSum() {
+      var a = +input.a.value;
+      var b = +input.b.value;
+      var result = +input.result.value;
+      a + b === result ? alert('정답') : alert('오답');
+    }
+    btn.addEventListener('click', checkSum);
+  </script>
+</body>
+
+</html>

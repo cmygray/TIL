@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>hover effect</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <p>hover effect를 구현하라. 마우스가 .box 위에 올라오면 .box의 배경색을 blue로, 마우스가 .box에서 빠져나가면 .box의 배경색을 원래로 되돌린다.</p>
+  <div class="box"></div>
+  <script>
+    var box = document.getElementsByClassName('box')[0];
+    box.addEventListener('mouseover', function() {
+      this.style.backgroundColor = 'blue';
+    });
+    box.addEventListener('mouseout', function() {
+      this.removeAttribute('style')
+    });
+  </script>
+</body>
+
+</html>
