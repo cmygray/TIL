@@ -19,12 +19,14 @@
   <p>hover effect를 구현하라. 마우스가 .box 위에 올라오면 .box의 배경색을 blue로, 마우스가 .box에서 빠져나가면 .box의 배경색을 원래로 되돌린다.</p>
   <div class="box"></div>
   <script>
-    var box = document.getElementsByClassName('box')[0];
+    var box = document.querySelector('.box');
+    var color = getComputedStyle(box).backgroundColor;
     box.addEventListener('mouseover', function() {
-      this.style.backgroundColor = 'blue';
+      this.style['background-color'] = 'blue';
     });
     box.addEventListener('mouseout', function() {
-      this.removeAttribute('style')
+      // CSSStyleDeclaration은 읽기전용이다
+      this.removeAttribute('style');
     });
   </script>
 </body>

@@ -24,12 +24,12 @@
   </div>
   <input type="button" value="확인">
   <script>
-    var input = document.getElementsByTagName('input')
-    var btn = input[3];
+    var textInputs = document.getElementsByTagName('input')
+    var btn = document.querySelector('input[type=button]')
     function checkSum() {
-      var a = +input.a.value;
-      var b = +input.b.value;
-      var result = +input.result.value;
+      var a = +textInputs.a.value;
+      var b = +textInputs.b.value;
+      var result = +textInputs.result.value;
       a + b === result ? alert('정답') : alert('오답');
     }
     btn.addEventListener('click', checkSum);

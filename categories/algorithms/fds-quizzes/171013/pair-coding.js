@@ -14,7 +14,7 @@ function gcdlcm(a, b) {
 }
 console.log(gcdlcm(3, 12));
 
-// 리팩토링: 여러 숫자의 최소공배수
+  // 리팩토링: 여러 숫자의 최소공배수
 
 function nlcm(...num) {
   const numbers = Array.prototype.slice.call(num);
@@ -39,15 +39,11 @@ console.log(nlcm(3, 6, 12, 20, 100));
 // 14. 피보나치 수
 
 function fibonacci(n) {
-  const init = [0, 1];
-  if (n > 1) {
-    for (let i = 0; i < n - 1; i++) {
-      var a = init[i] + init[i + 1];
-      init.push(a);
-    }
-    return a;
+  const fiboArray = [0, 1];
+  for (let i = 2; i <= n; i++) {
+    fiboArray[i] = fiboArray[i - 2] + fiboArray[i - 1];
   }
-  return init[n];
+  return fiboArray[n];
 }
 console.log(fibonacci(5));
 
@@ -56,9 +52,8 @@ console.log(fibonacci(5));
 // 15. 하샤드 수
 
 function isHarshad(n) {
-  const str = n.toString().split('');
-  const divider = str.reduce(function (a, b) {
-    return parseInt(a, 10) + parseInt(b, 10);
+  const divider = n.toString().split('').reduce(function (sum, item) {
+    return parseInt(sum, 10) + parseInt(item, 10);
   });
   return n % divider === 0;
 }
