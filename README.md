@@ -30,3 +30,5 @@
   * [Tasks, microtasks, queues and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)
   * [Philip Roberts: Help, I’m stuck in an event-loop](https://vimeo.com/96425312)
 * [HTML: attribute와 property의 차이](https://medium.com/@jeongwooahn/html-attribute%EC%99%80-property-%EC%9D%98-%EC%B0%A8%EC%9D%B4-d3c172cebc41)
+* [How to choose (and contribute to) your first open source project](https://github.com/collections/choosing-projects)
+* [Your first progressive wep app](https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/?hl=ko)
