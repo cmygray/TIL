@@ -361,16 +361,32 @@ Syntax
 
 ## 3. Execution Context
 
-insideMemoryStack...(LIFO)
+전역코드와 함수코드가 실행되는 환경을 뜻하며 객체형태를 띤다. 각 실행환경은 컨트롤의 이동을 통해 생성, 소멸한다. 단 전역 실행 컨텍스트(global EC)는 애플리케이션이 종료될 때까지 유지된다.
 
-VO;VariableObj(GO;GlobalObj/AO;ActivatedObj)
+실행컨텍스트(객체)의 구성요소
 
-SC;ScopeChain
+* Scope Chain; 스코프 체인  
+  [[Scopes]] 프로퍼티에 현재 컨텍스트부터 최상위 컨텍스트(global)까지의 변수객체를 순서대로 참조하는 배열형태의 값으로, 각 요소 중 가장 먼저 생성된다.
+* Variable Object;변수 객체  
+  전역/함수 컨텍스트에 따라서 GO(global object)와 AO(activation object)로 나뉘며 각각 저장하고 있는 정보가 조금씩 다르다.
+* thisValue; this값  
+  각 요소 중 마지막으로 생성되며, 기본적으로 global을 가리키다가 함수의 호출 시 패턴에 따라 값이 결정된다.
 
-this value
+Scope Chain
 
-controller의 할당(?), 반환 절차
+* 0:GO, 1:AO1, 2:AO2...
 
+Variable Object
+
+* GO;global object
+  1. function hoisting
+  2. variable hoisting
+* AO:activation object
+  1. parameter : argument
+  2. function hoisting
+  3. variable hoisting
+
+thisValue
 
 ## 4. Closure
 
